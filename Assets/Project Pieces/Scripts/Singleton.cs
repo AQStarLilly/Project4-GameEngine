@@ -9,6 +9,7 @@ public class Singleton : MonoBehaviour
     public GameStateManager gameStateManager;
     public UIManager uIManager;
     public LevelManager levelManager;
+    public DialogueManager dialogueManager;
     public PlayerMovement player;
 
     private void Awake()

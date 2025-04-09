@@ -19,6 +19,8 @@ public class PlayerMovement : MonoBehaviour
 
     private float currentSpeed;
 
+    public bool canMove = true;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -40,6 +42,11 @@ public class PlayerMovement : MonoBehaviour
 
     private void UpdateMoveVector(Vector2 InputVector)
     {
+        if (!canMove)
+        {
+            moveVector = Vector2.zero;
+            return;
+        }
         moveVector = InputVector;
     }
 

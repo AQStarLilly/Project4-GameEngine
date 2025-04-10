@@ -21,12 +21,12 @@ public class InputManager : MonoBehaviour, GameInput.IPlayerActions
         if (context.performed)
         {
             Vector2 movement = context.ReadValue<Vector2>();
-            Debug.Log("Movement input : " + movement);
+            //Debug.Log("Movement input : " + movement);
             Actions.MoveEvent?.Invoke(movement);
         }
         else if (context.canceled)
         {
-            Debug.Log("Movement stopped.");
+            //Debug.Log("Movement stopped.");
             Actions.MoveEvent?.Invoke(Vector2.zero);
         }
     }
@@ -36,12 +36,12 @@ public class InputManager : MonoBehaviour, GameInput.IPlayerActions
         if (context.performed)
         {
             Actions.SprintEvent?.Invoke(true);
-            Debug.Log("Started sprinting.");
+            //Debug.Log("Started sprinting.");
         }
         else if (context.canceled)
         {
             Actions.SprintEvent?.Invoke(false);
-            Debug.Log("Stopped sprinting.");
+            //Debug.Log("Stopped sprinting.");
         }
     }
 

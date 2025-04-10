@@ -25,6 +25,7 @@ public class DialogueManager : MonoBehaviour
         Singleton.Instance.player.canMove = false;
         dialogue.Clear();
         dialogueUI.SetActive(true);
+        Cursor.visible = true;
 
         foreach (string currentString in sentences)
         {
@@ -56,5 +57,6 @@ public class DialogueManager : MonoBehaviour
         Time.timeScale = 1;
         Singleton.Instance.player.canMove = true;
         dialogueUI.SetActive(false);
+        Cursor.visible = false;
     }
 }

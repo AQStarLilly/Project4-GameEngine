@@ -2088,7 +2088,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &271934227
 RectTransform:
   m_ObjectHideFlags: 0
@@ -66461,7 +66461,7 @@ MonoBehaviour:
   infoText: {fileID: 0}
   fadeDuration: 1
   sentences:
-  - Welcome to Basecamp
+  - Welcome to Basecamp!
 --- !u!58 &1355451775
 CircleCollider2D:
   m_ObjectHideFlags: 0

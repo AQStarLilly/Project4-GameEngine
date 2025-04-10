@@ -27,6 +27,8 @@ public class InteractableObject : MonoBehaviour
     [Header("Dialogue Text")]
     [TextArea] public string[] sentences;
 
+    public string itemName;
+
 
     public void Awake()
     {
@@ -63,12 +65,14 @@ public class InteractableObject : MonoBehaviour
     {
         if (interType == InteractionType.Pickup)
         {
-            Debug.Log("You picked up a " + gameObject.name);
-            Destroy(gameObject);
-        }
-        else
-        {
-            Debug.LogWarning("Tried to pick up an object but failed");
+            if (FindObjectOfType<SimpleInventory>().AddItem(itemName))
+            {
+                Destroy(gameObject); // Picked up successfully
+            }
+            else
+            {
+                Debug.Log("Inventory full, can't pick up");
+            }
         }
     }
 

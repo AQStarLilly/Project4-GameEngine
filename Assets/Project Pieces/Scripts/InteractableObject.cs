@@ -27,6 +27,10 @@ public class InteractableObject : MonoBehaviour
     [Header("Dialogue Text")]
     [TextArea] public string[] sentences;
 
+    [Header("Optional - Item Requirement to Pickup")]
+    public bool requiresItemToPickup = false;
+    public string requiredItemName;
+
     public string itemName;
 
 
@@ -65,6 +69,22 @@ public class InteractableObject : MonoBehaviour
     {
         if (interType == InteractionType.Pickup)
         {
+            // If this pickup requires a specific item
+            if (requiresItemToPickup)
+            {
+                if (!FindObjectOfType<SimpleInventory>().HasItem(requiredItemName))
+                {
+                    Debug.Log("You need a " + requiredItemName + " to pick this up!");
+                    Singleton.Instance.dialogueManager.StartDialogue(new string[]
+                    {
+                    "I can't pick this up with my bare hands...",
+                    "Maybe I need a " + requiredItemName + "."
+                    });
+                    return; // Block pickup
+                }
+            }
+
+            // If they have the required item or none is needed
             if (FindObjectOfType<SimpleInventory>().AddItem(itemName))
             {
                 Destroy(gameObject); // Picked up successfully
@@ -114,13 +134,23 @@ public class InteractableObject : MonoBehaviour
 
     public void Dialogue()
     {
-        if (Singleton.Instance.dialogueManager != null)
+        // Check if this object also has a QuestGiver attached
+        QuestGiver questGiver = GetComponent<QuestGiver>();
+
+        if (questGiver != null)
         {
-            Singleton.Instance.dialogueManager.StartDialogue(sentences);
+            questGiver.Interact();  // Let QuestGiver handle it
         }
         else
         {
-            Debug.LogError("DialogueManager not assigned in the Singleton. Please check the GameManager.");
+            if (Singleton.Instance.dialogueManager != null)
+            {
+                Singleton.Instance.dialogueManager.StartDialogue(sentences);
+            }
+            else
+            {
+                Debug.LogError("DialogueManager not assigned in the Singleton. Please check the GameManager.");
+            }
         }
     }
 }

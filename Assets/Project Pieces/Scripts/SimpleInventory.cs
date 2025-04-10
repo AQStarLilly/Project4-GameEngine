@@ -45,6 +45,47 @@ public class SimpleInventory : MonoBehaviour
         return true;
     }
 
+    public bool HasItem(string itemName)
+    {
+        foreach (InventoryItem item in items)
+        {
+            if (item.itemName == itemName && item.count > 0)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void RemoveItem(string itemName, int amountToRemove = 1)
+    {
+        for (int i = 0; i < items.Count; i++)
+        {
+            if (items[i].itemName == itemName)
+            {
+                items[i].count -= amountToRemove;
+
+                if (items[i].count <= 0)
+                    items.RemoveAt(i);
+
+                UpdateInventoryUI();
+                return;
+            }
+        }
+    }
+
+    public int GetItemCount(string itemName)
+    {
+        foreach (InventoryItem item in items)
+        {
+            if (item.itemName == itemName)
+            {
+                return item.count;
+            }
+        }
+        return 0;
+    }
+
     void UpdateInventoryUI()
     {
         inventoryText.text = "Inventory:\n";
